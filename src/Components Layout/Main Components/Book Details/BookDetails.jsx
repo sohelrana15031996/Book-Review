@@ -1,20 +1,29 @@
 // import { useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import { addRead } from "../../../LocalStorage/Read";
+import { setWhislistStorage } from "../../../LocalStorage/Whislist";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const BookDetails = () => {
   const bookdetails = useLoaderData();
   const { bookId } = useParams();
+  const readNotify = () => toast("Added on your read booklist.");
+  const whislistNotify = () => toast("Added on your whislist.");
 
-
-  const handleRead = (bookId)=>{
+  const handleRead = (bookId) => {
     addRead(bookId);
+    readNotify();
+  }
+  const handleWhislist = (bookId) => {
+    setWhislistStorage(bookId);
+    whislistNotify()
   }
 
   const bookDetail = bookdetails.find(bookDetail => bookDetail.bookId === bookId);
 
-  const {bookName, author, image, review, tags, totalPages, publisher, yearOfPublishing, rating } = bookDetail
+  const { bookName, author, image, review, tags, totalPages, publisher, yearOfPublishing, rating } = bookDetail
   return (
     <div className="flex">
       <div className="w-1/2">
@@ -32,28 +41,31 @@ const BookDetails = () => {
         <hr />
         <div>
           <table>
-            <tr>
-              <td>Number of Pages:</td>
-              <td className="pl-20">{totalPages}</td>
-            </tr>
-            <tr>
-              <td>Publisher:</td>
-              <td className="pl-20">{publisher}</td>
-            </tr>
-            <tr>
-              <td>Year of Publishing:</td>
-              <td className="pl-20">{yearOfPublishing}</td>
-            </tr>
-            <tr>
-              <td>Rating:</td>
-              <td className="pl-20">{rating}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>Number of Pages:</td>
+                <td className="pl-20">{totalPages}</td>
+              </tr>
+              <tr>
+                <td>Publisher:</td>
+                <td className="pl-20">{publisher}</td>
+              </tr>
+              <tr>
+                <td>Year of Publishing:</td>
+                <td className="pl-20">{yearOfPublishing}</td>
+              </tr>
+              <tr>
+                <td>Rating:</td>
+                <td className="pl-20">{rating}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div className="space-x-6">
-          <button onClick={()=>handleRead(bookId)} className="btn btn-ghost border">Read</button>
-          <button className="btn btn-accent">Whislist</button>
+          <button onClick={() => handleRead(bookId)} className="btn btn-ghost border">Read</button>
+          <button onClick={() => handleWhislist(bookId)} className="btn btn-accent">Whislist</button>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
