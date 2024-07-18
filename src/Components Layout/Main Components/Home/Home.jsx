@@ -18,8 +18,6 @@ const Home = () => {
     }
   }
 
-  console.log(books);
-  console.log(count);
   return (
     <div>
       <Banner></Banner>
