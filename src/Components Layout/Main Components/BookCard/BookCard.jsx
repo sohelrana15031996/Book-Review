@@ -1,6 +1,7 @@
 
 
 const BookCard = ({book}) => {
+  console.log(book)
   const{image,author, bookName, publisher, totalPages, category, rating} = book;
   return (
     <div className="hero">

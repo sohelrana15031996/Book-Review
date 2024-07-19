@@ -10,7 +10,7 @@ const addRead = (bookId) => {
   const items = getReadStorageValue();
   const exists = items.find(item => item==bookId);
   if(!exists){
-    items.push(bookId);
+    items.push(parseInt(bookId));
   }
  
   localStorage.setItem('readBooks', JSON.stringify(items));

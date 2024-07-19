@@ -1,62 +1,73 @@
 import { useLoaderData } from "react-router-dom";
 import { getReadStorageValue } from "../../../LocalStorage/Read";
-import ReadBook from "../ReadBooks/ReadBook";
-import { useEffect } from "react";
-import WishlistBook from "../Wishlist/WishlistBook";
+import BookCard from "../BookCard/BookCard";
+import { useState } from "react";
 import { getWhishlistStorage } from "../../../LocalStorage/Whislist";
-// import { getWhishlistStorage } from "../../../LocalStorage/Whislist";
-// import WishlistBook from "../Wishlist/WishlistBook";
+
+
 
 
 const ListedBooks = () => {
   const booksData = useLoaderData();
-  const readStorage = getReadStorageValue();
-  const whislistBooks = getWhishlistStorage();
-  // const [display, setDisplay] = useState(true);
-  // const [whislist, setWishlist] = useState('hidden');
- const booksObject = [];
- const wishliStBook = [];
-  useEffect(() => {
-    for (const iterator of readStorage) {
-      const book = booksData.find(book => book.bookId == iterator)
-        if (book) {
-        booksObject.push(book);
-        }
+  // Get data from local storage for read books.
+  const readBookStorage = getReadStorageValue();
+  const readStorageBooks = [];
+
+  // get data from local storage for wishlist books
+  const wishlistBookStorage = getWhishlistStorage();
+  const wishlistStorageBooks = [];
+
+  // State use for udating button click
+  const [readButton, setReadButton] = useState(true);
+  const [wislistButton, setwishlistButton] = useState('hidden');
+
+  // const [readButtonDesign, setReadButtonDesign] = useState('border-b-transparen');
+  // const [wislistButtonDesign, setwishlistButtonDesign] = useState('');
+
+  for (const id of readBookStorage) {
+
+    const exists = booksData.find(exists => parseInt(exists.bookId) === id);
+    if (exists) {
+      readStorageBooks.push(exists);
     }
-  }, []);
 
-  useEffect(() => {
-    for (const iterator of whislistBooks) {
-      const exists = booksData.find(exists => exists.bookId == iterator);
-      if (exists) {
-        wishliStBook.push(exists);
-        }
+  }
+
+  for (const id of wishlistBookStorage) {
+    const exists = booksData.find(exists => parseInt(exists.bookId) === id);
+    if (exists) {
+      wishlistStorageBooks.push(exists);
     }
-  }, []);
+  }
 
 
-  // const handleReadBooks = () => {
-  //   setDisplay(true);
-  //   // setWishlist('hidden');
-  // }
-  // const handleWhislistBooks = () => {
-  //   setDisplay('hidden');
-  //   setWishlist(true)
-  // }
 
-console.log(booksObject);
+  const handleReadButton = () => {
+    setwishlistButton('hidden')
+    setReadButton(true)
+  }
+  const handleWishlistButton = () => {
+    setReadButton('hidden')
+    setwishlistButton(true)
+  }
+
+
+
   return (
     <div>
-      <button className={`btn btn-ghost`}>Read Books</button>
-      <button className="btn btn-ghost">Whislist</button>
-      <hr />
-      <div>
-        <ReadBook booksObject={booksObject}></ReadBook>
-      </div>
-      <div className={``}>
-        <WishlistBook wishliStBook={wishliStBook}></WishlistBook>
-      </div>
+      <button onClick={handleReadButton} className={`btn btn-ghost border border-black`}>Read</button>
+      <button onClick={handleWishlistButton} className={`btn bg-green-100 border-black`}>Wishlist</button>
 
+      <div className={`${readButton}`}>
+        {
+          readStorageBooks.map(book => <BookCard key={book.bookId} book={book}></BookCard>)
+        }
+      </div>
+      <div className={`${wislistButton}`}>
+        {
+          wishlistStorageBooks.map((book, idx) => <BookCard key={idx} book={book}></BookCard>)
+        }
+      </div>
     </div>
   );
 };

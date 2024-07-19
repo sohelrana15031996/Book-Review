@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import BookCard from '../BookCard/BookCard';
+// import BookCard from '../BookCard/BookCard';
 
-const ReadBook = ({booksObject}) => {
-  console.log(booksObject);
-  console.log(typeof(booksObject));
+const ReadBook = ({book}) => {
+  console.log(book);
+  console.log(typeof(book));
 
   // const { bookName, image, author, totalPages, category, publisher, rating } = bookObj;
   return (
     <div>
-      {
-        booksObject.map((book, idx)=> <BookCard key={idx} book={book}></BookCard>)
-      }
+      {/* {
+        book.map((book, idx)=> <BookCard key={idx} book={book}></BookCard>)
+      } */}
     </div>
   );
 };
