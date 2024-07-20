@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Banner from "../Banner/Banner";
 import Books from "../Books/Books";
+import { Helmet } from "react-helmet-async";
 
 
 const Home = () => {
@@ -20,8 +21,14 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <Banner></Banner>
-      <div className="grid grid-cols-3 gap-4 mx-auto">
+      <div>
+        <h4 className="mt-20 mb-10 text-center text-5xl font-bold">Books</h4>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mx-auto">
         {
           books.slice(0, count).map(book =><Books key={book.bookId} book={book}></Books>)
         }

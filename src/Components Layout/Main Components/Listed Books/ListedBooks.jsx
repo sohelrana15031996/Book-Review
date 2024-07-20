@@ -3,6 +3,7 @@ import { getReadStorageValue } from "../../../LocalStorage/Read";
 import BookCard from "../BookCard/BookCard";
 import { useState } from "react";
 import { getWhishlistStorage } from "../../../LocalStorage/Whislist";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -21,8 +22,6 @@ const ListedBooks = () => {
   const [readButton, setReadButton] = useState(true);
   const [wislistButton, setwishlistButton] = useState('hidden');
 
-  // const [readButtonDesign, setReadButtonDesign] = useState('border-b-transparen');
-  // const [wislistButtonDesign, setwishlistButtonDesign] = useState('');
 
   for (const id of readBookStorage) {
 
@@ -52,9 +51,11 @@ const ListedBooks = () => {
   }
 
 
-
   return (
     <div>
+      <Helmet>
+        <title>Listed Books</title>
+      </Helmet>
       <button onClick={handleReadButton} className={`btn btn-ghost border border-black`}>Read</button>
       <button onClick={handleWishlistButton} className={`btn bg-green-100 border-black`}>Wishlist</button>
 

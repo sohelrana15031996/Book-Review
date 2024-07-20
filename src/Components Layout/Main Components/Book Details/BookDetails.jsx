@@ -4,6 +4,7 @@ import { addRead } from "../../../LocalStorage/Read";
 import { setWhislistStorage } from "../../../LocalStorage/Whislist";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet-async";
 
 
 const BookDetails = () => {
@@ -25,10 +26,12 @@ const BookDetails = () => {
 
   const { bookName, author, image, review, tags, totalPages, publisher, yearOfPublishing, rating } = bookDetail
   return (
-    <div className="flex">
+    <div className="flex flex-col lg:flex-row items-center my-24 space-y-16">
+      {/* Book Image */}
       <div className="w-1/2">
         <img className="w-full" src={image} alt="" />
       </div>
+      {/* Book Details here */}
       <div className="w-1/2 space-y-4">
         <h3 className="text-4xl font-bold">{bookName}</h3>
         <hr />

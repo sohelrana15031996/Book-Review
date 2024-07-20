@@ -1,4 +1,4 @@
-
+import PropType from 'prop-types';
 
 const BookCard = ({book}) => {
   console.log(book)
@@ -30,4 +30,7 @@ const BookCard = ({book}) => {
   );
 };
 
+BookCard.propTypes={
+  book:PropType.object.isRequired,
+}
 export default BookCard;
